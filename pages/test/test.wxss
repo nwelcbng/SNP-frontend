@@ -1,0 +1,40 @@
+page{
+  background-color:#f1f1f1;
+}
+.tips{
+  padding: 10rpx;
+}
+.tip{
+  color: grey;
+  font-size: 24rpx;
+}
+.xiaoxi{
+  position: absolute;
+  bottom: 100rpx;
+  right: 100rpx;
+  width: 80rpx;
+  height: 60rpx;
+  animation: jitter 2s infinite 1s ease-in;
+
+}
+@keyframes jitter{
+  0% {
+    transform: rotate(0)
+  }
+  5% {
+    transform: rotate(-20deg)
+  }
+  10% {
+    transform: rotate(0)
+  }
+  15%{
+    transform: rotate(20deg);
+  }
+  20%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(0);
+  }
+}
+  

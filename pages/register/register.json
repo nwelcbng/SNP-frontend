@@ -1,0 +1,6 @@
+{
+  "usingComponents":{
+    "register-form":"/components/register-form/register-form"
+  },
+  "navigationBarTitleText":"报名"
+}

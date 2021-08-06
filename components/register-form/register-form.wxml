@@ -1,0 +1,70 @@
+<form action="">
+    <view class="register-item">
+      <view class="register-label-an" >
+      <view class="text1 {{Sactive == true?'textactive':''}}">学</view>
+      <view class="text1 {{Sactive == true?'textactive':''}}" style="transition-delay:0.1s">号</view>
+    </view>
+    <input class="register-input" name="Sno" bindfocus="StextFoucs" bindblur="StextUnfoucs"/>
+    </view>
+
+    <view class="register-item">
+      <view class="register-label-an" >
+      <view class="text1 {{Nactive == true?'textactive':''}}">姓</view>
+      <view class="text1 {{Nactive == true?'textactive':''}}" style="transition-delay:0.1s">名</view>
+    </view>
+    <input class="register-input" name="name" bindfocus="NtextFoucs" bindblur="NtextUnfoucs"/>
+    </view>
+
+    <view class="register-item">
+      <view class="register-label-an" >
+      <view class="text1 {{Qactive == true?'textactive':''}}">q</view>
+      <view class="text1 {{Qactive == true?'textactive':''}}" style="transition-delay:0.1s">q</view>
+    </view>
+    <input class="register-input" name="name" bindfocus="QtextFoucs" bindblur="QtextUnfoucs"/>
+    </view>
+
+    <view class="register-item">
+      <view class="register-label-an" >
+      <view class="text1 {{Pactive == true?'textactive':''}}">手</view>
+      <view class="text1 {{Pactive == true?'textactive':''}}" style="transition-delay:0.1s">机</view>
+    </view>
+    <input class="register-input" name="name" bindfocus="PtextFoucs" bindblur="PtextUnfoucs"/>
+    </view>
+
+    <!-- <view class="register-item">
+      <label for="name" class="register-label">学院和专业</label>
+      <input class="register-input" id="name"/>
+    </view> -->
+    <view class="register-item">
+      <view class="register-label">意向部门</view>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{depList}}">
+        <input class="register-input"  value="{{depList[depIndex]}}" disabled="true"/>
+      </picker>
+    </view>
+
+    <view class="register-item">
+      <view for="secDep" class="register-label">第二部门</view>
+      <picker bindchange="bindPickerChangeSec" value="{{index}}" range="{{secDepList}}">
+        <input class="register-input" id="secDep" value="{{secDepList[secIndex]}}"
+        disabled="true" />
+      </picker>
+    </view>
+    <view class="register-item">
+      <text class="register-label">你的性别</text>
+        <radio class="checkbox"  checked="{{sex}}" color="#656dda" bindtap="sexChange"/>男
+        <radio class="checkbox"  checked="{{!sex}}" color="#656dda" 
+        bindtap="sexChange"/>女
+    </view>
+
+    <view class="register-item">
+      <view  class="register-label">自我介绍</view>
+      <textarea class="register-textarea" name="intro"  placeholder="介绍一下自己的学习经验,方向进度,兴趣,学习成绩等"></textarea>
+    </view>
+
+    <view class="register-item">
+      <view  class="register-label">如何了解社团</view>
+      <textarea class="register-textarea" name="know"  placeholder="如何了解社团的"></textarea>
+    </view>
+
+    <button class="button">提交</button>
+  </form>

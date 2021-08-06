@@ -1,0 +1,24 @@
+<home-swiper banners="{{banners}}"></home-swiper>
+<navBar bind:scrollToDep="scrollToDep"
+        bind:joinDialog="joinDialog"
+          ></navBar>
+<view class="home-introduce" >
+  <view  id="party" class="home-introduce-title {{scrollTop>tops[0] ? 'active-box':'box'}}">
+    <view>协会介绍</view>
+  </view>
+  <view class="home-introduce-main  {{scrollTop>tops[1] ? 'active-box':'box'}}">
+      <dep-item item="{{party}}" ></dep-item>
+  </view>
+
+  <view class="home-introduce-title {{scrollTop>tops[2] ? 'active-box':'box'}}" id="dep">
+    <view>部门介绍</view>
+  </view>
+  <view class="home-introduce-main">
+    <view wx:for="{{list}}" wx:key="index" class=" {{scrollTop>tops[index+3] ? 'active-box':'box'}}">
+      <dep-item item="{{item}}" />
+    </view>
+  </view>
+</view>
+<mp-dialog title="二维码进群" show="{{showOneButtonDialog}}" bindbuttontap="joinDialog" buttons="{{buttons}}">
+        <image src="/assets/img/erweima.png" class="dialog-img"></image>
+</mp-dialog>

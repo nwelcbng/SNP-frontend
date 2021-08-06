@@ -1,0 +1,10 @@
+<!-- <view class="register-title">elc欢迎你!</view> -->
+
+<view class="register-form">
+  <register-form></register-form>
+</view>
+
+
+
+
+  
