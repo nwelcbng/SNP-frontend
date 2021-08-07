@@ -51,8 +51,8 @@
     </view>
     <view class="register-item">
       <text class="register-label">你的性别</text>
-        <radio class="checkbox"  checked="{{sex}}" color="#656dda" bindtap="sexChange"/>男
-        <radio class="checkbox"  checked="{{!sex}}" color="#656dda" 
+        <radio class="checkbox"  checked="{{sex}}" color="#62caf5" bindtap="sexChange"/>男
+        <radio class="checkbox"  checked="{{!sex}}" color="#62caf5" 
         bindtap="sexChange"/>女
     </view>
 

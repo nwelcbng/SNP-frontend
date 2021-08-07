@@ -1,3 +1,7 @@
+<!-- <view class='stars'></view>
+<view class='stars2'></view>
+<view class='stars3'></view>
+<view class='stars4'></view> -->
 <home-swiper banners="{{banners}}"></home-swiper>
 <navBar bind:scrollToDep="scrollToDep"
         bind:joinDialog="joinDialog"

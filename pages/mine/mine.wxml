@@ -26,7 +26,7 @@
       <open-data type="userNickName" class="nickname"></open-data>
     </block>
     <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" open-type="getPhoneNumber"  bindgetphonenumber="getPhoneNumber"> 获取头像昵称 </button>
       <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
       <view wx:else> 请使用1.4.4及以上版本基础库 </view>
     </block>
@@ -42,5 +42,6 @@
 </view> -->
 
 <options></options>
+<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">测试按钮</button>
 <!-- <process></process> -->
 

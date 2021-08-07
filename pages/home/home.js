@@ -3,11 +3,7 @@ import request from "../../services/network/request.js"
 
 Page({
   data: {
-    // indicatorDots: true,
-    // vertical: false,
-    // autoplay: true,
-    // interval: 3000,
-    // duration: 1000,
+
     banners:[], //轮播图数组
     list:[
       {
@@ -59,7 +55,6 @@ Page({
 
 
   onLoad: function (options) {
-    wx.setStorageSync("userInfo","Tan");
     request({
       url:"http://152.136.185.210:7878/api/m5/home/multidata"
     }).then(res => {
@@ -143,7 +138,7 @@ Page({
   },
   onPageScroll(position){
     this.setData({
-      scrollTop:position.scrollTop + 500
+      scrollTop:position.scrollTop + 600
     })
     // console.log(this.data.tops)
     // console.log(this.data.scrollTop)

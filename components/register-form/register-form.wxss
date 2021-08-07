@@ -28,15 +28,16 @@
 .register-label,.register-label-an{
   position: relative;
   padding: 10rpx;
-  color:#656dda;
+  color:#62caf5;
 }
 .button{
-  background-color: #656dda;
+  background-color: #62caf5;
   color: white;
 }
 .checkbox{
   margin:20rpx auto;
-  color:#656dda;
+  /* color:#656dda; */
+  color:#62caf5;
 }
 
 .text1{

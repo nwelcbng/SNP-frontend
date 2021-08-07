@@ -15,12 +15,6 @@
   0% {
     transform:  translateY(0) 
   }
-  /* 25% {
-    transform:  translateY(-25%) 
-  }
-  50% {
-    transform:  translateY(0) 
-  } */
   50% {
     transform:  translateY(25%) 
   }
@@ -30,8 +24,9 @@
   }
 
 page{
-  background-color:#f1f1f1;
-}
+  background-color: #f1f1f1;
+}  
+
 .waveWrapper {
   height: 50vh;
   overflow: hidden;
