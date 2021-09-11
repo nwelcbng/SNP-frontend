@@ -1,6 +1,7 @@
 {
   "usingComponents":{
-    "register-form":"/components/register-form/register-form"
+    "register-form":"/components/register/register-form/register-form"
   },
-  "navigationBarTitleText":"报名"
+  "navigationBarTitleText":"报名",
+  "enablePullDownRefresh":true
 }

@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "process":"/components/exam/process/process",
+    "message":"/components/exam/message/message",
+    "mp-dialog": "weui-miniprogram/dialog/dialog"
+  },
+  "navigationBarTitleText":"考核情况",
+  "enablePullDownRefresh":true
+}

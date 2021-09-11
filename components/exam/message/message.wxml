@@ -1,0 +1,16 @@
+<view class="mesasge">
+  <form method="get" catchsubmit="formSubmit">
+    <view class="message-view" >
+      <view class="message-title">状态信息</view>
+      <view>当前阶段:{{process[status]}}</view>
+      <view>当前状态:{{processStatus[sureGo==0 ? 0:(sureGo>0 ? 1:2) ]}}</view>
+      <view  wx:if="{{sureGo<0}}">你的留言：</view>
+      <!-- <input type="text" name="dasds"></input> -->
+      <textarea  name="reason" cols="30" rows="10" class="message-input" wx:if="{{sureGo<0&&!isSure}}"></textarea>
+      <image src="/assets/img/tongguo.png" class="isSure-img" wx:if="{{isSure}}"></image>
+      <view wx:if="{{isSure}}">你已经提交了状态信息</view>
+      <button wx:if="{{!isSure}}" formType="submit">参加</button>
+      <button wx:if="{{!isSure}}" formType="submit">缺席</button>
+    </view>
+  </form>
+</view>

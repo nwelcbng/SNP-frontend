@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-    "process":"/components/process/process",
-    "options":"/components/options/options"
+    "options":"/components/mine/options/options"
   },
-  "navigationBarTitleText":"个人信息"
+  "navigationBarTitleText":"个人信息",
+  "backgroundColor": "#f0f0f0"
 }

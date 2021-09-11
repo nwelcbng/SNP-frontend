@@ -31,8 +31,8 @@
           "scene": null
         },
         {
-          "name": "pages/test/test",
-          "pathName": "pages/test/test",
+          "name": "pages/exam/exam",
+          "pathName": "pages/home/home",
           "query": "",
           "scene": null
         },

@@ -1,0 +1,56 @@
+.HomeHonor{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30rpx;
+  text-align: left;
+  color: white;
+  font-size: 26rpx;
+}
+.honorItems{
+  position: relative;
+}
+
+.honorItems::before{
+  height: 100%;
+  width: 100%;
+  display: block;
+  content: '';
+  position: absolute;
+  left: 36rpx;
+  border-left: 2rpx solid #62caf5;
+}
+
+.TimeItem, .itemTitle{
+  font-size: 30rpx;
+}
+.honorItem{
+  position: relative;
+  left: 40rpx;
+  margin: 30rpx; 
+}
+
+.itemTitle::before{
+  height: 20rpx;
+  width: 20rpx;
+  display: block;
+  content: '';
+  position: absolute;
+  left: -44rpx;
+  top: 13rpx;
+  border-radius: 50%;
+  background-color: #62caf5;
+  box-shadow: 0 0 10rpx rgb(143, 193, 243)
+}
+
+.honorTime{
+  position: absolute;
+  left: -130rpx;
+}
+.itemText{
+  width: 450rpx;
+  height: 60rpx;
+  line-height: 80rpx;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}

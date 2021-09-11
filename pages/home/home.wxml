@@ -1,28 +1,52 @@
-<!-- <view class='stars'></view>
-<view class='stars2'></view>
-<view class='stars3'></view>
-<view class='stars4'></view> -->
+<mp-dialog title="进群二维码" show="{{showOneButtonDialog}}" bindbuttontap="joinDialog" buttons="{{buttons}}">
+  <image src="/assets/img/erweima.png" class="dialog-img" bindtap="imgClick"></image>
+</mp-dialog>
+<view class="star-module1">
+  <view class='stars'></view>
+  <view class='stars2'></view>
+  <view class='stars3'></view>
+</view>
+<view class="star-module2">
+  <view class='stars'></view>
+  <view class='stars2'></view>
+  <view class='stars3'></view>
+</view>
 <home-swiper banners="{{banners}}"></home-swiper>
 <navBar bind:scrollToDep="scrollToDep"
-        bind:joinDialog="joinDialog"
+        bind:joinDialog="joinDialogShow"
+        bind:scrollToPar="scrollToPar"
+        bind:scrollToHon="scrollToHon"
           ></navBar>
+
 <view class="home-introduce" >
   <view  id="party" class="home-introduce-title {{scrollTop>tops[0] ? 'active-box':'box'}}">
     <view>协会介绍</view>
   </view>
-  <view class="home-introduce-main  {{scrollTop>tops[1] ? 'active-box':'box'}}">
+  <view class="home-introduce-main show" >
       <dep-item item="{{party}}" ></dep-item>
   </view>
 
-  <view class="home-introduce-title {{scrollTop>tops[2] ? 'active-box':'box'}}" id="dep">
+  <view class="home-introduce-title {{scrollTop>tops[1] ? 'active-box':'box'}}" id="dep">
     <view>部门介绍</view>
   </view>
   <view class="home-introduce-main">
-    <view wx:for="{{list}}" wx:key="index" class=" {{scrollTop>tops[index+3] ? 'active-box':'box'}}">
+    <view wx:for="{{list}}" wx:key="index" class=" {{scrollTop>tops[index+2] ? 'active-box':'box'}}">
       <dep-item item="{{item}}" />
     </view>
   </view>
+
+  <view class="home-introduce-title {{scrollTop>tops[1] ? 'active-box':'box'}}" id="honor">
+    <view>协会荣誉</view>
+  </view>
+  <view class="home-introduce-main">
+    <home-honor honor="{{honor}}">
+    </home-honor>
+  </view>
 </view>
-<mp-dialog title="二维码进群" show="{{showOneButtonDialog}}" bindbuttontap="joinDialog" buttons="{{buttons}}">
-        <image src="/assets/img/erweima.png" class="dialog-img"></image>
-</mp-dialog>
+
+<view class='stars'></view>
+<view class='stars2'></view>
+<view class='stars3'></view>
+<!-- <view class='stars4'></view>
+<view class='stars5'></view>
+<view class='stars6'></view> -->

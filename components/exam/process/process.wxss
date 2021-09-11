@@ -1,0 +1,77 @@
+.progress-bar{
+  width: 100%;
+  overflow: hidden;
+  height: 300rpx;
+  left: -20rpx;
+  position: relative;
+  color: #62caf5;
+}
+.loading-bar{
+  margin: 0 auto;
+  background-color: white;
+  width: 500rpx;
+  height: 10rpx;
+  border-radius: 5rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.loading-title{
+  margin: 20rpx auto;
+  width: 500rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+}
+.bar-pot{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+}
+/* .progress-options{
+  margin: 0 auto;
+  background-color: white;
+  width: 500rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+.option-items{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  left: 18rpx;
+  top: -20rpx;
+  width: 200rpx;
+  border-left: 8rpx solid white;
+  border-radius: 6rpx;
+}
+.option-item{
+  width: 20rpx;
+  height: 70rpx;
+  border-bottom: 8rpx solid white ;
+  font-size: 26rpx;
+}
+.item-text{
+  width: 200rpx;
+  font-size: 30rpx;
+  position: relative;
+  left:30rpx;
+  top: 50rpx;
+}
+.img{
+  width: 40rpx;
+  height: 40rpx;
+  position: relative;
+  z-index: 100;
+}
+.sure-right{
+  width: 40rpx;
+  height: 40rpx;
+  position: relative;
+  left: 100rpx;
+}

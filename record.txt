@@ -1,0 +1,6 @@
+openid1:oPndU5eWqEkM2101oOOf_rWSM3Fk
+openid2:oPndU5eWqEkM2101oOOf_rWSM3Fk  code:003R3Kkl26Bay7418sml241gE84R3Kkc
+openid3:oPndU5eWqEkM2101oOOf_rWSM3Fk  code:083NA7000EaydM1Xxk300kMd7q0NA70c
+openid4:oPndU5eWqEkM2101oOOf_rWSM3Fk  code:0036k1ll2hTry74P4Ykl2dLal936k1lO
+openid5:oPndU5eWqEkM2101oOOf_rWSM3Fk  code:073V42ll2pWqy74fOzml2KLh8U1V42lc
+openid6:oPndU5eWqEkM2101oOOf_rWSM3Fk  code:093cSMGa1Q5ezB0xqPGa1p79Jw2cSMG0

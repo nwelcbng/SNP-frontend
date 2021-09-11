@@ -1,0 +1,47 @@
+<view class="HomeHonor" >
+  <view class="honorItems">
+  <view class="cut-line"></view>
+    <view class="honorItem" wx:for="{{honor}}" wx:for-item="item" wx:for-index="index" wx:key="index"> 
+      <view class="honorTime">{{item.year}}</view>
+      <view class="itemTitle">
+      {{item.title}}
+      </view>
+      <view class="itemText" wx:for="{{item.items}}"  wx:for-item="itemS" wx:for-index="indexS" wx:key="indexS">
+      {{itemS}}
+      </view>
+
+      <view class="itemText">
+      ......
+      </view>
+    </view>
+    <!-- <view class="honorItem" > 
+      <view class="honorTime">2016</view>
+      <view class="itemTitle">
+      广东省优秀社团 
+      </view>
+      <view class="itemText">
+      广东省大学生电子设计大赛 二等奖
+      </view>
+      <view class="itemText">
+        广东省大学生物理实验设计大赛 三等奖
+      </view>
+      <view class="itemText">
+      ......
+      </view>
+    </view>
+    <view class="honorItem"> 
+      <view class="itemTitle">
+      广东省优秀社团 
+      </view>
+      <view class="itemText">
+      广东省大学生电子设计大赛 二等奖
+      </view>
+      <view class="itemText">
+        广东省大学生物理实验设计大赛 三等奖
+      </view>
+      <view class="itemText">
+      ......
+      </view>
+    </view> -->
+  </view>
+</view>

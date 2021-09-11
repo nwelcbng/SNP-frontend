@@ -1,0 +1,8 @@
+<view class="dep-item">
+  <view class="dep-item-title">
+    <view class="title-text" >{{item.title}}</view>
+  </view>
+  <view class="dep-item-introduce">
+    <text decode="true" >{{item.introduce}}</text>
+  </view>
+</view>

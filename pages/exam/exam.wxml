@@ -1,0 +1,28 @@
+
+<block wx:if="{{!isLoged}}">
+  <view class="register-warn">你还没有登录，请登陆后在进行报名哦!</view>
+</block>
+
+<block wx:elif="{{isTimeout}}">
+  <view class="register-warn">网络加载超时！请稍后进行刷新</view>
+</block>
+
+<block wx:elif="{{isFinish}}">
+  <view class="register-form">
+    <process currentIndex="{{currentStatus}}" bind:sureGoTo="sureGo" sureGo="{{sureGo}}"  isSure="{{isSure}}"></process>
+    <message status="{{currentStatus}}" sureGo="{{sureGo}}" isSure="{{isSure}}" bind:Sure="Sure"></message>
+    <view class="tips"><text decode="{{true}}" class="tip">&nbsp;&nbsp;&nbsp;Tips:可以选择是否准时参加考核，也可以点击请假进行请假。但是状态信息一旦确认，就不可以更改！</text></view>
+    <view class="xiaoxi-win" bindtap="dialogShow">
+      <image src="/assets/img/xiaoxi.png" class="xiaoxi"></image>
+    </view>
+    <mp-dialog title="师兄师姐的意见" show="{{showOneButtonDialog}}" bindbuttontap="exitDialog" buttons="{{buttons}}">
+        <text>{{ExamData.result}}</text>
+    </mp-dialog>
+  </view>
+</block>
+
+<view class='stars'></view>
+<view class='stars2'></view>
+<view class='stars3'></view>
+
+
