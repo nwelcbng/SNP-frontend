@@ -1,7 +1,7 @@
 .progress-bar{
   width: 100%;
   overflow: hidden;
-  height: 300rpx;
+  /* height: 600rpx; */
   left: -20rpx;
   position: relative;
   color: #62caf5;
@@ -58,7 +58,7 @@
 }
 .item-text{
   width: 200rpx;
-  font-size: 30rpx;
+  font-size: 25rpx;
   position: relative;
   left:30rpx;
   top: 50rpx;
@@ -73,5 +73,6 @@
   width: 40rpx;
   height: 40rpx;
   position: relative;
-  left: 100rpx;
+  left: 130rpx;
+  top: 6rpx;
 }

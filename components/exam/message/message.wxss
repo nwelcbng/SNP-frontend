@@ -29,3 +29,7 @@
   width: 140rpx;
   height: 140rpx;
 }
+
+.btn{
+  margin: 20rpx;
+}

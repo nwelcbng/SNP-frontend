@@ -32,7 +32,7 @@
         },
         {
           "name": "pages/exam/exam",
-          "pathName": "pages/home/home",
+          "pathName": "pages/exam/exam",
           "query": "",
           "scene": null
         },

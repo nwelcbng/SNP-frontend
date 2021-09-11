@@ -9,12 +9,10 @@ Page({
     isFinish:false,
     isTimeout:false,
     isLoged:false,
-    sureGo:0,
-    currentStatus:0,
-    isSure:false,
     ExamData:null,
     buttons: [{text: '确定'}],
-    showOneButtonDialog:false
+    showOneButtonDialog:false,
+    stateCode:[2,0,1]
   },
 
   /**
@@ -93,29 +91,36 @@ Page({
   onShareAppMessage: function () {
 
   },
-  sureGo(event){
+  SureGo(event){
+    console.log(event)
     this.setData({
-      sureGo:event.detail.sureGo
+      sureGo:event.detail.remark
+    })
+  },
+  SureAb(event){
+    console.log(event)
+    this.setData({
+      sureGo:event.detail.remark
     })
   },
   Sure(res){
-    if(this.data.sureGo<0&&(!res.detail.value.reason||!res.detail.value.reason.length)){
-      wx.showToast({
-        title: '请输入请假理由',
-        icon: 'none',
-        duration: 1500
-      })
-      return ;
-    }
-    const data = {
-      check:res.detail.value.reason,
-      result:this.data.sureGo
-    }
-    console.log(data)
-    //发送网络请求
-    this.setData({
-      isSure:true
-    })
+    // if(this.data.sureGo<0&&(!res.detail.value.reason||!res.detail.value.reason.length)){
+    //   wx.showToast({
+    //     title: '请输入请假理由',
+    //     icon: 'none',
+    //     duration: 1500
+    //   })
+    //   return ;
+    // }
+    // const data = {
+    //   check:res.detail.value.reason,
+    //   result:this.data.sureGo
+    // }
+    // console.log(data)
+    // //发送网络请求
+    // this.setData({
+    //   isSure:true
+    // })
   },
   dialogShow(){
     this.setData({

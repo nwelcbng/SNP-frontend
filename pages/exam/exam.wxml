@@ -9,8 +9,8 @@
 
 <block wx:elif="{{isFinish}}">
   <view class="register-form">
-    <process currentIndex="{{currentStatus}}" bind:sureGoTo="sureGo" sureGo="{{sureGo}}"  isSure="{{isSure}}"></process>
-    <message status="{{currentStatus}}" sureGo="{{sureGo}}" isSure="{{isSure}}" bind:Sure="Sure"></message>
+    <process stateCode="{{stateCode}}"></process>
+    <message stateCode="{{stateCode}}" bind:SureGo="SureGo" bind:SureAb="SureGo"></message>
     <view class="tips"><text decode="{{true}}" class="tip">&nbsp;&nbsp;&nbsp;Tips:可以选择是否准时参加考核，也可以点击请假进行请假。但是状态信息一旦确认，就不可以更改！</text></view>
     <view class="xiaoxi-win" bindtap="dialogShow">
       <image src="/assets/img/xiaoxi.png" class="xiaoxi"></image>

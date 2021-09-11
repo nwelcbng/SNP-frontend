@@ -1,92 +1,68 @@
-<view class="progress-bar">
+<view class="progress-bar" style="height:{{ height[stateCode[0]] }}rpx">
   <view class="loading-title">
-    <view>报名</view>
+    <view wx:for="{{status}}" wx:key="index">{{item}}</view>
+    <!-- <view>报名</view>
     <view>一轮面试</view>
     <view>笔试</view>
     <view>二轮面试</view>
-    <view>结果</view>
+    <view>结果</view> -->
   </view>
   <view class="loading-bar">
-    <view class="bar-pot"  >
-      <image src="/assets/img/dui-active.png" class="img"></image>
-      <view class="option-items" wx:if="{{currentIndex == 0 && !isSure}}">
-        <view class="option-item">
-          <view class="item-text" bindtap="sureGo">前往</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo>0}}"></image>
+    <view class="bar-pot" >
+      <image src="/assets/img/dui-active.png" class="img" wx:if="{{stateCode[0] > 0 }}"></image>
+      <image src="/assets/img/wenhao.png" class="img" wx:else></image>
+      <view class="option-items" wx:if="{{stateCode[0] == 0 }}">
+        <view class="option-item" wx:for="{{state[stateCode[0]]}}" wx:key="index">
+          <view class="item-text">{{item.name}}</view>
+          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{stateCode[1] > index}}"></image>
+          <image class="sure-right" src="/assets/img/run.png" wx:if="{{stateCode[1] == index}}"></image>
         </view>
-        <view class="option-item">
-          <view class="item-text" bindtap="absent">请假</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo<0}}"></image>
-        </view>
-        <!-- <view class="option-item">
-          <view class="item-text">确定前往</view>
-        </view> -->
       </view>
     </view>
     <view class="bar-pot"  >
-      <image src="/assets/img/dui-active.png" class="img"></image>
-      <view class="option-items" wx:if="{{currentIndex == 1 && !isSure}}">
-        <view class="option-item">
-          <view class="item-text" bindtap="sureGo">前往</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo>0}}"></image>
+      <image src="/assets/img/dui-active.png" class="img" wx:if="{{stateCode[0] > 1 }}"></image>
+      <image src="/assets/img/wenhao.png" class="img" wx:else></image>
+      <view class="option-items" wx:if="{{stateCode[0] == 1 }}">
+        <view class="option-item" wx:for="{{state[stateCode[0]]}}" >
+          <view class="item-text">{{item.name}}</view>
+          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{stateCode[1] > index}}"></image>
+          <image class="sure-right" src="/assets/img/run.png" wx:if="{{stateCode[1] == index}}"></image>
         </view>
-        <view class="option-item">
-          <view class="item-text" bindtap="absent">请假</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo<0}}"></image>
-        </view>
-        <!-- <view class="option-item">
-          <view class="item-text">确定前往</view>
-        </view> -->
       </view>
     </view>
     <view class="bar-pot" >
-      <image src="/assets/img/dui-active.png" class="img"></image>
-      <view class="option-items" wx:if="{{currentIndex == 2 && !isSure}}">
-        <view class="option-item">
-          <view class="item-text" bindtap="sureGo">前往</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo>0}}"></image>
+      <image src="/assets/img/dui-active.png" class="img" wx:if="{{stateCode[0] > 2 }}"></image>
+      <image src="/assets/img/wenhao.png" class="img" wx:else></image>
+      <view class="option-items" wx:if="{{stateCode[0] == 2 }}">
+        <view class="option-item" wx:for="{{state[stateCode[0]]}}" wx:key="index">
+          <view class="item-text">{{item.name}}</view>
+          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{stateCode[1] > index}}"></image>
+          <image class="sure-right" src="/assets/img/run.png" wx:if="{{stateCode[1] == index}}"></image>
         </view>
-        <view class="option-item">
-          <view class="item-text" bindtap="absent">请假</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo<0}}"></image>
-        </view>
-        <!-- <view class="option-item">
-          <view class="item-text">确定前往</view>
-        </view> -->
       </view>
     </view>
     <view class="bar-pot" >
-      <image src="/assets/img/dui-active.png" class="img"></image>
-      <view class="option-items" wx:if="{{currentIndex == 3 && !isSure}}">
-        <view class="option-item">
-          <view class="item-text" bindtap="sureGo">前往</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo>0}}"></image>
+      <image src="/assets/img/dui-active.png" class="img" wx:if="{{stateCode[0] > 3 }}"></image>
+      <image src="/assets/img/wenhao.png" class="img" wx:else></image>
+      <view class="option-items" wx:if="{{stateCode[0] == 3 }}">
+        <view class="option-item" wx:for="{{state[stateCode[0]]}}" wx:key="index">
+          <view class="item-text">{{item.name}}</view>
+          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{stateCode[1] > index}}"></image>
+          <image class="sure-right" src="/assets/img/run.png" wx:if="{{stateCode[1] == index}}"></image>
         </view>
-        <view class="option-item">
-          <view class="item-text" bindtap="absent">请假</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo<0}}"></image>
-        </view>
-        <!-- <view class="option-item">
-          <view class="item-text">确定前往</view>
-        </view> -->
       </view>
     </view>
     <view class="bar-pot" >
       <!-- <image src="/assets/img/dui-active.png" class="img" ></image> -->
-      <image src="/assets/img/wenhao.png" class="img"></image>
-      <view class="option-items" wx:if="{{currentIndex == 4 && !isSure}}">
-        <view class="option-item">
-          <view class="item-text" bindtap="sureGo">前往</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo>0}}"></image>
+      <image src="/assets/img/dui-active.png" class="img" wx:if="{{stateCode[0] > 4 }}"></image>
+      <image src="/assets/img/wenhao.png" class="img" wx:else></image>
+      <!-- <view class="option-items" wx:if="{{stateCode[0] == 4 }}">
+        <view class="option-item" wx:for="{{state[stateCode[0]]}}" >
+          <view class="item-text">{{item.name}}</view>
+          <image class="sure-right"  src="/assets/img/dui.png" wx:if="{{stateCode[1] > index}}"></image>
+          <image class="sure-right" src="/assets/img/run.png" wx:if="{{stateCode[1] == index}}"></image>
         </view>
-        <view class="option-item">
-          <view class="item-text" bindtap="absent">请假</view>
-          <image class="sure-right" src="/assets/img/dui.png" wx:if="{{sureGo<0}}"></image>
-        </view>
-        <!-- <view class="option-item">
-          <view class="item-text">确定前往</view>
-        </view> -->
-      </view>
+      </view> -->
     </view>
   </view>
 </view>
