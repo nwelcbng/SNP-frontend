@@ -12,7 +12,7 @@ Page({
     ExamData:null,
     buttons: [{text: '确定'}],
     showOneButtonDialog:false,
-    stateCode:[2,0,1]
+    stateCode:[4,0,1]
   },
 
   /**
