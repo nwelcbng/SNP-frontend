@@ -67,7 +67,7 @@ Page({
         items:['第五届通宇.科创杯电子实践技能技能竞赛 一等奖','信工科创杯 二等奖','精彩还在继续']
       },
       {
-        year:2020,
+        year:2021,
         title:'精彩即将开始',
         items:[]
       }
@@ -84,15 +84,15 @@ Page({
 
 
   onLoad: function (options) {
-    request({
-      url:"http://152.136.185.210:7878/api/m5/home/multidata"
-    }).then(res => {
-      this.setData({
-        banners:res.data.banner.list
-      })
-    }).catch(err => {
-      console.log(err)
-    })
+    // request({
+    //   url:"http://152.136.185.210:7878/api/m5/home/multidata"
+    // }).then(res => {
+    //   this.setData({
+    //     banners:res.data.banner.list
+    //   })
+    // }).catch(err => {
+    //   console.log(err)
+    // })
 
   },
 

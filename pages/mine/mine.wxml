@@ -18,11 +18,17 @@
 </view>
 
 <view class="userinfo-container">
-  <view class="userinfo">
 
+  <view class="userinfo">
+    <block wx:if="{{canIUseOpenData}}">
+      <view class="userinfo-avatar" bindtap="bindViewTap">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+      <open-data type="userNickName"></open-data>
+    </block>
     <block wx:if="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" open-type="getPhoneNumber"  bindgetphonenumber="getPhoneNumber" class="info-btn"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile" class="info-btn"> 获取头像昵称 </button>
+      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="info-btn"> 获取头像昵称 </button>
       <view wx:else> 请使用1.4.4及以上版本基础库 </view>
     </block>
     <block wx:else>
@@ -35,6 +41,6 @@
 <!-- <view style="background-image: url('/assets/img/wave-bot.png')" class="abc">
   测试
 </view> -->
-<options></options>
+<options bind:scanQRcode="scanQRcode"></options>
 <!-- <process></process> -->
 

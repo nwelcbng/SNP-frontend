@@ -1,8 +1,18 @@
 import request from "./request"
-export function login(){
+export function registerRe(data){
+  console.log(123)
   return request({
-    url: 'https://mockapi.eolinker.com/DIvEEJG0adff1fcb42ec5c36ec5dba353d96bb5387d1a6b/user/applogin',
-    method:"get",
-    timeout: 5000
+    url: '/user/register',
+    method:"POST",
+    data
+  })
+}
+export function loginRe(token){
+  return request({
+    url: '/user/applogin',
+    header:{
+      Authorization:token
+    },
+    method:"POST"
   })
 }

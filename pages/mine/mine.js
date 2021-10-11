@@ -1,17 +1,20 @@
 // pages/mine/mine.js
 // var appInstance = getApp()
 // console.log(appInstance.globalData)
-
+import {scanQRcodeRe} from '../../services/network/scanQRcode'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    userInfo: null,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: true,
+
+    // canIUseGetUserProfile: false,
+    // canIUseOpenData: false
   },
 
   /**
@@ -19,8 +22,8 @@ Page({
    */
   onLoad: function (options) {
     // this.getUserProfile();
-    const userInfo = wx.getStorageSync('userInfo') || null; //取出缓存里面的用户信息
-    if(userInfo != null){
+    const userInfo = wx.getStorageSync('userInfo'); //取出缓存里面的用户信息
+    if(userInfo){
       this.setData({
         hasUserInfo:true,
         userInfo:userInfo
@@ -96,6 +99,38 @@ Page({
         console.log(err)
       }
     })
+  },
+  getUserInfo(e) {
+    // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
+    console.log(e)
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
+    })
+  },
+  scanQRcode(value){
+    scanQRcodeRe({uuid:value.detail.uuid}).then(res => {
+      console.log(res)
+      if(res.code == 1){
+        wx.showToast({
+          title: '扫码成功',
+          icon:'success',
+          duration:1500
+        })
+      }else{
+        wx.showToast({
+          title: res.msg,
+          icon:'error',
+          duration:1500
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+      wx.showToast({
+        title: '网络错误',
+        icon:'error',
+        duration:1500
+      })
+    })
   }
-
 })

@@ -1,8 +1,32 @@
 import request from "./request"
 export function getExamData(){
   return request({
-    url: 'https://mockapi.eolinker.com/DIvEEJG0adff1fcb42ec5c36ec5dba353d96bb5387d1a6b/user/getstatus',
-    method:"get",
-    timeout: 5000
+    url: '/user/appGetstatus',
+    method:"GET",
+    header:{
+      Authorization:wx.getStorageSync('token')
+    }
+  })
+}
+
+export function giveUp(data){
+  return request({
+    url:'/user/appGiveUpFirstAudition',
+    method:'POST',
+    header:{
+      Authorization:wx.getStorageSync('token')
+    },
+    data
+  })
+}
+
+export function SignIn(data){
+  return request({
+    url:'/user/signIn',
+    method:'POST',
+    header:{
+      Authorization:wx.getStorageSync('token')
+    },
+    data
   })
 }

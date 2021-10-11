@@ -12,6 +12,7 @@ Component({
   
   data: {
     state:[
+      [],
       [
         {
           name:"收集中",
@@ -84,23 +85,18 @@ Component({
         {
           name:"录取结果",
           button:[[]],
-          states:['已录用','未录用']
+          states:['','已录用','未录用']
         }
       ]
     ],
-    height:[300,550,400,300,200],
-    status:['报名','一轮面试','笔试','二轮面试','结果']
+    height:[0,300,550,400,300,200],
+    status:['123','报名','一轮面试','笔试','二轮面试','结果']
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   methods:{
-    sureGo(){
-      this.triggerEvent('sureGoTo',{sureGo:1},{})
-    },
-    absent(){
-      this.triggerEvent('sureGoTo',{sureGo:-1},{})
-    }
+
   }
 })

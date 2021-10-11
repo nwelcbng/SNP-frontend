@@ -6,8 +6,11 @@ Component({
       value:[]
     },
     position:{
-      type:String,
-      value:'教五502晚上17:00'
+      type:String
+    },
+    check:{
+      type:Boolean,
+      value:true
     }
   },
   /**
@@ -15,6 +18,7 @@ Component({
    */
   data: {
     state:[
+      [],
       [
         {
           name:"收集中",
@@ -130,19 +134,16 @@ Component({
         }
       ]
     ],
-    remark:''
+    remark:'',
+    isSure:true
   },
 
   methods:{
     go(){
-      console.log("走")
-      // console.log("用户信息提交");
       //用户已经提交了信息，应当发送事件到test页面让页面提交网络请求
       this.triggerEvent("SureGo",{remark:this.data.remark},{})
     },
     absent(){
-      console.log("跑路")
-      // console.log("用户信息提交");
       //用户已经提交了信息，应当发送事件到test页面让页面提交网络请求
       this.triggerEvent("SureAb",{remark:this.data.remark},{})
     },

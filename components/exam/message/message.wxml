@@ -6,10 +6,14 @@
       <view wx:if="{{position}}">时间地点:{{position}}</view>
       <view wx:if="{{state[stateCode[0]][stateCode[1]].button[stateCode[2]].length}}">你的留言：</view>
       <!-- <input type="text" name="dasds"></input> -->
-      <textarea wx:if="{{state[stateCode[0]][stateCode[1]].button[stateCode[2]].length}}"  name="reason" cols="30" rows="10" class="message-input" disabled="{{false}}" bindinput="onchange"></textarea>
-      <image src="/assets/img/tongguo.png" class="isSure-img" wx:if="{{isSure}}"></image>
-      <view wx:if="{{isSure}}">你已经提交了状态信息</view>
-      <button class="btn" wx:for="{{state[stateCode[0]][stateCode[1]].button[stateCode[2]]}}" wx:key="index" bindtap="{{item.method}}">{{item.name}}</button>
-      <!-- <button  bindtap="absent">缺席</button> -->
+      <textarea wx:if="{{state[stateCode[0]][stateCode[1]].button[stateCode[2]].length}}"  name="reason" cols="30" rows="10" class="message-input" disabled="{{false}}" bindinput="onchange" disabled="{{check}}"></textarea>
+      <block wx:if="{{check&&state[stateCode[0]][stateCode[1]].button[stateCode[2]].length}}">
+        <image src="/assets/img/tongguo.png" class="isSure-img" ></image>
+        <view >你已经提交了状态信息</view>
+      </block>
+      <block wx:else>
+        <button class="btn" wx:for="{{state[stateCode[0]][stateCode[1]].button[stateCode[2]]}}" wx:key="index" bindtap="{{item.method}}">{{item.name}}</button>
+      </block>
+
     </view>
 </view>

@@ -63,11 +63,15 @@
   left:30rpx;
   top: 50rpx;
 }
-.img{
+.img,.cuo-img{
   width: 40rpx;
   height: 40rpx;
   position: relative;
-  z-index: 100;
+  z-index: 1000;
+}
+.cuo-img{
+  width: 46rpx;
+  height: 46rpx;
 }
 .sure-right{
   width: 40rpx;

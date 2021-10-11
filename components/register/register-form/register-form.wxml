@@ -1,110 +1,126 @@
-<form class="register-form" method="get" catchsubmit="formSubmit">
+<form class="register-form" catchsubmit="formSubmit">
     <view class="tips"><text decode="{{true}}" class="tip">&nbsp;&nbsp;&nbsp;&nbsp;Tips:可以在“我的”界面中进行扫码，然后在web端登录并填写报名信息</text></view>
-    <view class="register-item">
-      <view class="register-label-an" >
-      <view class="text1 {{Sactive||formData.sno ?'textactive':''}}">学</view>
-      <view class="text1 {{Sactive||formData.sno ?'textactive':''}}" style="transition-delay:0.1s">号</view>
-    </view>
-    <input  class="register-input" name="Sno" bindfocus="StextFoucs" bindblur="StextUnfoucs" model:value="{{formData.sno}}" />
-    </view>
-
-    <view class="register-item">
-      <view class="register-label-an" >
-        <view class="text1 {{Nactive||formData.name ?'textactive':''}}">姓</view>
-        <view class="text1 {{Nactive||formData.name ?'textactive':''}}" style="transition-delay:0.1s">名</view>
+    <view wx:if="{{!hasPhone}}" class="formTest">
+      <view class="register-item phoneTest" >
+        <view class="register-label-an" >
+          <view class="text1 {{Pactive == true?'textactive':''}}">手</view>
+          <view class="text1 {{Pactive == true?'textactive':''}}" style="transition-delay:0.1s">机</view>
+        </view>
+        <input class="register-input phone input-fontFormat" name="phone" bindinput="Pinput" bindfocus="PtextFoucs" bindblur="PtextUnfoucs" />
+      <!-- <text class="codeLabel">验证码：</text> -->
       </view>
-    <input class="register-input" name="name" bindfocus="NtextFoucs" bindblur="NtextUnfoucs" value="{{formData.name}}"/>
-    </view>
 
-    <view class="register-item" >
-      <view class="register-label-an" >
-      <view class="text1 {{Qactive||formData.qq ?'textactive':''}}">q</view>
-      <view class="text1 {{Qactive||formData.qq ?'textactive':''}}" style="transition-delay:0.1s">q</view>
-    </view>
-    <input class="register-input" name="qq" bindfocus="QtextFoucs" bindblur="QtextUnfoucs" value="{{formData.qq}}"/>
-    </view>
-
-    <view class="register-item" wx:if="{{!hasPhone}}">
-      <view class="register-label-an" >
-        <view class="text1 {{Pactive == true?'textactive':''}}">手</view>
-        <view class="text1 {{Pactive == true?'textactive':''}}" style="transition-delay:0.1s">机</view>
+      <view class="register-item phoneTest" >
+        <view class="register-label-an" >
+          <view class="text1 {{Tactive == true?'textactive':''}}">验</view>
+          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.1s">证</view>
+          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.2s">码</view>
+        </view>
+        <input class="register-input testCode" name="code" bindfocus="TtextFoucs" bindblur="TtextUnfoucs"/>
+        <button size="mini" class="  {{codeBtn == true ? 'codeBtn-active':'codeButton'}}" bindtap="codeBtnTap">{{ timing!=0 ? '已发送验证码('+timing+')' : '获取验证码'}}</button>
       </view>
-    <input class="register-input phone" name="phone" bindfocus="PtextFoucs" bindblur="PtextUnfoucs" />
-    <!-- <text class="codeLabel">验证码：</text> -->
     </view>
-
-    <view class="register-item" wx:if="{{!hasPhone}}">
-      <view class="register-label-an" >
-        <view class="text1 {{Tactive == true?'textactive':''}}">验</view>
-        <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.1s">证</view>
-        <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.2s">码</view>
+    <view wx:else class="formTest">
+        <view class="register-item">
+        <view class="register-label-an" >
+        <view class="text1 {{Sactive||formData.sno ?'textactive':''}}">学</view>
+        <view class="text1 {{Sactive||formData.sno ?'textactive':''}}" style="transition-delay:0.1s">号</view>
       </view>
-      <input class="register-input testCode" name="testCode" bindfocus="TtextFoucs" bindblur="TtextUnfoucs"/>
-      <button size="mini" class="  {{codeBtn == true ? 'codeBtn-active':'codeButton'}}" bindtap="codeBtnTap">{{ timing!=0 ? '已发送验证码('+timing+')' : '获取验证码'}}</button>
-    </view>
+      <input  class="register-input input-fontFormat" name="sno" bindfocus="StextFoucs" bindblur="StextUnfoucs" model:value="{{formData.sno}}" />
+      </view>
 
-    <view class="register-item">
-      <view class="register-label">年级</view>
-      <picker bindchange="GListChange" value="{{index}}" range="{{GList}}">
-        <input class="register-input" name="grade"  value="{{GList[GIndex]}}" disabled="true"/>
-      </picker>
-    </view>
+      <view class="register-item">
+        <view class="register-label-an" >
+          <view class="text1 {{Nactive||formData.name ?'textactive':''}}">姓</view>
+          <view class="text1 {{Nactive||formData.name ?'textactive':''}}" style="transition-delay:0.1s">名</view>
+        </view>
+      <input class="register-input input-fontFormat" name="name" bindfocus="NtextFoucs" bindblur="NtextUnfoucs" value="{{formData.name}}"/>
+      </view>
 
-    <view class="register-item">
-      <view class="register-label">学院</view>
-      <picker bindchange="CListChange" value="{{index}}" range="{{CList}}">
-        <input class="register-input" name="college" value="{{CList[CIndex]}}" disabled="true"/>
-      </picker>
-    </view>
+      <view class="register-item" >
+        <view class="register-label-an" >
+        <view class="text1 {{Qactive||formData.qq ?'textactive':''}}">q</view>
+        <view class="text1 {{Qactive||formData.qq ?'textactive':''}}" style="transition-delay:0.1s">q</view>
+      </view>
+      <input class="register-input input-fontFormat" name="qq" bindfocus="QtextFoucs" bindblur="QtextUnfoucs" value="{{formData.qq}}"/>
+      </view>
 
-    <view class="register-item">
-      <view class="register-label-an" >
-      <view class="text1 {{Mactive||formData.major ?'textactive':''}}">专</view>
-      <view class="text1 {{Mactive||formData.major ?'textactive':''}}" style="transition-delay:0.1s">业</view>
-    </view>
-    <input class="register-input" name="major" bindfocus="MtextFoucs" bindblur="MtextUnfoucs" value="{{formData.major}}"/>
-    </view>
+      <view class="register-item">
+        <view class="register-label">年级</view>
+        <picker bindchange="GListChange" value="{{formData.grade}}"  name="grade" range="{{GList}}">
+          <input class="register-input input-fontFormat" value="{{GList[formData.grade]}}" disabled />
+        </picker>
+      </view>
 
-    <view class="register-item">
-      <view class="register-label-an" >
-      <view class="text1 {{Cactive||formData.class ?'textactive':''}}">班</view>
-      <view class="text1 {{Cactive||formData.class ?'textactive':''}}" style="transition-delay:0.1s">级</view>
-    </view>
-    <input class="register-input" name="major" bindfocus="CtextFoucs" bindblur="CtextUnfoucs" value="{{formData.class}}"/>
-    </view>
+      <view class="register-item">
+        <view class="register-label">学院</view>
+        <picker bindchange="CListChange" value="{{formData.college}}" name="college"  range="{{CList}}">
+          <input class="register-input input-fontFormat"  value="{{CList[formData.college]}}" disabled />
+        </picker>
+      </view>
 
-    <view class="register-item">
-      <view class="register-label">意向部门</view>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{depList}}">
-        <input class="register-input" name="dep" value="{{depList[depIndex]}}" disabled="true"/>
-      </picker>
-    </view>
+      <view class="register-item">
+        <view class="register-label-an" >
+        <view class="text1 {{Mactive||formData.major ?'textactive':''}}">专</view>
+        <view class="text1 {{Mactive||formData.major ?'textactive':''}}" style="transition-delay:0.1s">业</view>
+      </view>
+      <input class="register-input input-fontFormat" name="major" bindfocus="MtextFoucs" bindblur="MtextUnfoucs" value="{{formData.major}}"/>
+      </view>
 
-    <view class="register-item">
-      <view for="secDep" class="register-label">第二部门</view>
-      <picker bindchange="bindPickerChangeSec" value="{{index}}" range="{{secDepList}}">
-        <input class="register-input" name="sec"  value="{{secDepList[secIndex]}}"
-        disabled="true" />
-      </picker>
-    </view>
-    <view class="register-item">
-      <text class="register-label">你的性别</text>
-      <radio class="checkbox"  checked="{{sex}}" color="#62caf5" bindtap="sexChange" />
-      <text decode="true">男 &nbsp;</text>
-      <radio class="checkbox"  checked="{{!sex}}" color="#62caf5" bindtap="sexChange" />
-      <text>女</text>
-    </view>
+      <view class="register-item">
+        <view class="register-label-an" >
+        <view class="text1 {{Cactive||formData.userclass ?'textactive':''}}">班</view>
+        <view class="text1 {{Cactive||formData.userclass ?'textactive':''}}" style="transition-delay:0.1s">级</view>
+      </view>
+      <input class="register-input input-fontFormat" name="class" bindfocus="CtextFoucs" bindblur="CtextUnfoucs" value="{{formData.userclass}}"/>
+      </view>
 
-    <view class="register-item">
-      <view  class="register-label">自我介绍</view>
-      <textarea class="register-textarea" name="intro"  placeholder="介绍一下自己的学习经验,方向进度,兴趣,学习成绩等"></textarea>
+      
+      <view class="register-item">
+        <view class="register-label-an" >
+        <view class="text1 {{DOactive||formData.domitory ?'textactive':''}}">宿</view>
+        <view class="text1 {{DOactive||formData.domitory ?'textactive':''}}" style="transition-delay:0.1s">舍</view>
+      </view>
+      <input class="register-input input-fontFormat" name="domitory" bindfocus="DOtextFoucs" bindblur="DOtextUnfoucs" value="{{formData.domitory}}"/>
+      </view>
+
+      <view class="register-item">
+        <view class="register-label">意向部门</view>
+        <picker bindchange="bindPickerChange" value="{{formData.dno}}" name="dno" range="{{depList}}">
+          <input class="register-input input-fontFormat"  value="{{depList[formData.dno]}}" disabled="true"/>
+        </picker>
+      </view>
+
+      <view class="register-item">
+        <view for="secDep" class="register-label">第二部门</view>
+        <picker bindchange="bindPickerChangeSec" value="{{formData.secdno}}" name="secdno" range="{{depList}}">
+          <input class="register-input input-fontFormat" value="{{depList[formData.secdno]}}"
+          disabled="true" />
+        </picker>
+      </view>
+      <view class="register-item">
+        <text class="register-label">你的性别</text>
+        <radio class="checkbox"  checked="{{formData.gender}}" color="#62caf5" bindtap="sexChange" />
+        <text decode="true">男 &nbsp;</text>
+        <radio class="checkbox"  checked="{{!formData.gender}}" color="#62caf5" bindtap="sexChange" />
+        <text>女</text>
+      </view>
+
+      <view class="register-item">
+        <view  class="register-label">自我介绍</view>
+      <textarea class="register-textarea input-fontFormat" name="dsp" value="{{formData.description}}"  placeholder="介绍一下自己的学习经验,方向进度,兴趣,学习成绩等"></textarea>
     </view>
 
     <view class="register-item">
       <view  class="register-label">如何了解社团</view>
-      <textarea class="register-textarea" name="know"  placeholder="如何了解社团的"></textarea>
+      <textarea class="register-textarea input-fontFormat" name="know" value="{{formData.know}}" placeholder="请输入如何了解社团的"></textarea>
     </view>
 
-    <button formType="submit" class=" {{btnActive == true? 'button-active':'button'}}" >提交</button>
+      <view class="register-item">
+        <view  class="register-label">已加入的其他社团</view>
+        <textarea class="register-textarea input-fontFormat" name="party" value="{{formData.party}}"  placeholder="请输入已加入的社团"></textarea>
+      </view>
+    </view>
+    <button formType="submit" class="submit {{ btnActive == true? 'button-active':'button'}}" >提交</button>
     <view class="bottom-content "></view>
   </form>

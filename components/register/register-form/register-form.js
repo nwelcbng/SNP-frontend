@@ -1,42 +1,39 @@
-
-import request from "../../../services/network/request";
-
+import { PostForm,PostPhone,PostCode } from "../../../services/network/register";
 // components/register-form/register.form.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-
+    // hasPhone:{
+    //   type:Boolean,
+    //   value:true
+    // }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    hasPhone:wx.getStorageSync('phone'),
+    hasPhone:false,
     formData:null,
     btnActive:false,
-    depList:['网宣部','秘书部','外联部','项目部','实践部','项目部'],
-    GList:['20级','21级'],
-    CList:['计算机学院','物理学院'],
-    secDepList:['网宣部','秘书部','外联部','项目部','实践部','项目部'],
-    GIndex:0,
-    CIndex:0,
-    depIndex:0,
-    secIndex:0,
-    sex:0,
+    depList:['','维修部','秘书部','网宣部','外联部','实践部','项目部'],
+    GList:["","大一","大二","大三","大四","研究生"],
+    CList:["","机电工程学院","自动化学院","轻工化工学院","信息工程学院","土木与交通工程学院","管理学院","计算机学院","材料与能源学院","环境科学与工程学院","外国语学院","数学与统计学院","物理与光电工程学院","艺术与设计学院","政法学院","马克思主义学院","建筑与城市规划学院","经济与贸易学院","生物医药学院","微电子学院","国际教育学院","继续教育学院","先进制造学院","其他学院"],
     isLoged:false,
     Sactive:false,
     Nactive:false,
     Qactive:false,
     Pactive:false,
     Cactive:false,
+    DOactive:false,
     Mactive:false,
     Tactive:false,
     codeBtn:false,
     isSending:false,
-    timing:0
+    timing:0,
+    phone:''
   },
 
   /**
@@ -44,9 +41,12 @@ Component({
    */
   methods: {
     setFormData(data){
+      console.log("123")
       // 父组件传来的内容
+      console.log(wx.getStorageSync('phone'));
       this.setData({
-        formData:data
+        formData:data,
+        hasPhone:wx.getStorageSync('phone')
       })
     },
     formSubmit(e) {
@@ -59,61 +59,102 @@ Component({
         return ;
       }
       this.setData({
-        btnActive:true
+        btnActive:true,
+        isSending:true
       });
       setTimeout(() => {
         this.setData({
           btnActive:false
         })
       },500);
-      e.detail.value.sex = this.data.sex;
 
-
-      this.testData(e.detail.value)
-      .then(() => {
-        return new Promise((resolve) => {
-          console.log('验证通过了')
-          this.setData({
-            isSending:true
-          })
-          wx.showLoading({
-            title: '提交中',
-          });
-          resolve();
-        })
-      })
-      .then(() => {
-        return request({
-          url:"http://localhost:4000/form",
-          data:e.detail.value,
-          method:"post"
-        })
-      })
-      .then(() => {
-        wx.hideLoading();
-        wx.showToast({
-          title: "提交成功",  // 标题
-          icon: 'success',   // 图标类型，默认success
-          duration: 1500   // 提示窗停留时间，默认1500ms
-        })
-      })
-      .catch(err => {
-        wx.hideLoading();
-        wx.showToast({
-          title: err,  // 标题
-          icon: 'none',   // 图标类型，默认success
-          duration: 1500   // 提示窗停留时间，默认1500ms
-        })
-      }).finally(() => {
+      setTimeout(() => {
         this.setData({
           isSending:false
         })
+      },5000); 
+      
+      this.submitDataClass(e.detail.value)
+      .then(res => {
+        return new Promise((resolve) => {
+          console.log('表单填写正确通过了')
+          wx.showLoading({
+            title: '提交中',
+          });
+          resolve(res);
+        })
+      })
+      .then(res => {
+        if(this.data.hasPhone){
+          console.log(res);
+          return PostForm(res);
+        }else{
+          console.log(res);
+          return PostCode(res);
+        }
+      })
+      .then(res => {
+        console.log(res)
+        wx.hideLoading();
+        if(res.code == 1){
+          this.setData({
+            hasPhone:true
+          })
+          wx.setStorageSync('phone',true);
+          wx.setStorageSync('token', res.data);
+          wx.showToast({
+            title: "提交成功",  // 标题
+            icon: 'success',   // 图标类型，默认success
+            duration: 1500   // 提示窗停留时间，默认1500ms
+          })
+        }else{
+          wx.showToast({
+            title: res.msg,
+            icon:'error',
+            duration: 1500
+          })
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        wx.hideLoading();
+        wx.showToast({
+          title: err,  // 标题
+          icon: 'error',   // 图标类型，默认success
+          duration: 1500   // 提示窗停留时间，默认1500ms
+        })
       })
     },
+
+    submitDataClass(data){
+      if(this.data.hasPhone){
+        console.log('手机验证通过了11')
+        data.gender = this.data.formData.gender;
+        return this.testData(data)
+      }
+      console.log('正在验证手机11')
+      return this.testPhone(data)
+    },
+    
+    testPhone(data){
+      return new Promise((resolve ,reject) => {
+        let reg = /^\d{11}$/;
+        if(!reg.test(data.phone)){
+          return reject('请输入正确的手机号码')
+        }
+        reg = /^\d{6}$/;
+        if(!reg.test(data.code)){
+          //检测验证码是否正确
+          return reject('请输入正确的验证码')
+        }
+        resolve(data);
+      })
+    },
+
     testData(data){
       return new Promise((resolve ,reject) =>{
         let reg = /^\d{10}$/
-        if(!reg.test(data.Sno)){
+        if(!reg.test(data.sno)){
           //检测学号是否正确
           return reject('学号应该是10位数字哦')
         }
@@ -122,45 +163,33 @@ Component({
           //检测qq是否正确
           return reject('请输入正确的qq号')
         }
-        if(!this.hasPhone){
-          //检测手机号是否正确
-          reg = /^\d{11}$/;
-          if(!reg.test(data.phone)){
-            return reject('请输入正确的手机号码')
-          }
-          reg = /^\d{6}$/;
-          if(!reg.test(data.testCode)){
-            //检测验证码是否正确
-            return reject('请输入正确的验证码')
-          }
-        }
-        resolve();
+        resolve(data);
       })
 
     },
     bindPickerChange(event){
       this.setData({
-        depIndex:event.detail.value
+        ["formData.dno"]:event.detail.value
       })
     },
     bindPickerChangeSec(event){
       this.setData({
-        secIndex:event.detail.value
+        ["formData.secdno"]:event.detail.value
       })
     }, 
     CListChange(event){
       this.setData({
-        CIndex:event.detail.value
+        ['formData.college']:event.detail.value
       })
     },
     GListChange(event){
       this.setData({
-        GIndex:event.detail.value
+        ['formData.grade']:event.detail.value
       })
     },
     sexChange(){
       this.setData({
-        sex:Number(!this.data.sex)
+        ['formData.gender']:!this.data.formData.gender
       })
     },
     StextFoucs(){
@@ -169,7 +198,6 @@ Component({
       })
     },
     StextUnfoucs(event){
-      console.log(this.data.formData.sno)
       if(!event.detail.value){
         this.setData({
           Sactive:false,
@@ -216,6 +244,11 @@ Component({
         })
       }
     },
+    Pinput(event){
+      this.setData({
+        phone:event.detail.value
+      })
+    },
     CtextFoucs(){
       this.setData({
         Cactive:true
@@ -225,7 +258,20 @@ Component({
       if(!event.detail.value){
         this.setData({
           Cactive:false,
-          ['formData.class']:""
+          ['formData.userclass']:""
+        })
+      }
+    },
+    DOtextFoucs(){
+      this.setData({
+        DOactive:true
+      })
+    },
+    DOtextUnfoucs(event){
+      if(!event.detail.value){
+        this.setData({
+          DOactive:false,
+          ['formData.domitory']:""
         })
       }
     },
@@ -263,6 +309,27 @@ Component({
       this.setData({
         codeBtn:true
       })
+      PostPhone({phone:this.data.phone}).then(res => {
+        console.log(res);
+        if(res.code == 1){
+          wx.showToast({
+            title: '已发送验证码',
+            icon:'success',
+            duration:1500
+          })
+        }else{
+          wx.showToast({
+            title: res.msg,
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        wx.showToast({
+          title: '网络错误',
+          icon:'error'
+        })
+      })
+
       setTimeout(() => {
         this.setData({
           codeBtn:false

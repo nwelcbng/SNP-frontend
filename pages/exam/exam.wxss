@@ -1,5 +1,6 @@
 page{
-  background: radial-gradient( #1b2735 0%, #090a0f 100%);
+  /* background: radial-gradient( #1b2735 0%, #090a0f 100%); */
+  background: black;
 }
 .stars {
   position: absolute;
@@ -13,7 +14,7 @@ page{
 }
 .stars:after {
   content: " ";
-  position: absolute;
+
   border-radius: 50%;
   width: 1px;
   height: 1px;
@@ -33,7 +34,7 @@ page{
 }
 .stars2:after {
   content: " ";
-  position: absolute;
+
   width: 2px;
   height: 2px;
   border-radius: 50%;
@@ -53,7 +54,6 @@ page{
 }
 .stars3:after {
   content: " ";
-  position: absolute;
   width: 3px;
   height: 3px;
    border-radius: 50%;
@@ -123,4 +123,11 @@ page{
   line-height: 1000rpx;
   color:white;
   text-align: center;
+}
+
+.input{
+  margin: 0 auto;
+  background: white;
+  width: 200rpx;
+  height: 50rpx;
 }

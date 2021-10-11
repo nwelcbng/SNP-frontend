@@ -1,17 +1,17 @@
 export default function(config){
   return new Promise((resolve,reject) => {
-    console.log(config.header);
     wx.request(
       {
-        url: config.url,
+        url: 'https://snpapi.gdutelc.com'+config.url,
         method:config.method || 'get',
         data:config.data || [],
-        timeout:config.timeout,
+        // timeout:1,
         header:config.header,
         success: res => {
           resolve(res.data);
         },
         fail: err => {
+          console.log(err)
           reject('网络错误');
         }
     }

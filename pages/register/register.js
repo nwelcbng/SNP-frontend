@@ -1,12 +1,7 @@
-
-// pages/register/register.js
-// import request from "../../services/network/request"
 import {getForm} from "../../services/network/register"
 Page({
 
   data: {
-    valid: getApp().globalData.valid,
-    hasPhone:false,
     isFinish:false,
     isTimeout:false,
     isLoged:false,
@@ -48,9 +43,7 @@ Page({
     }
     if(isLoged&&!this.data.isFinish){
       //用户已经登录而且数据还未加载
-      this.requestData().catch(err => {
-        console.log(err)
-      })
+      this.requestData()
     }
   },
 
@@ -72,10 +65,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.requestData().then(() => {
-      wx.stopPullDownRefresh();
-    }).catch(err => {
-      console.log(err);
+    this.requestData().finally(() => {
       wx.stopPullDownRefresh();
     })
 
@@ -96,7 +86,6 @@ Page({
   },
   requestData(){
     return new Promise((resolve, reject) => {
-      console.log("开始请求了")
       this.setData({
         isFinish:false,
         isTimeout:false
@@ -105,46 +94,45 @@ Page({
         title: '加载数据中',
       });
       setTimeout(() => {
-        // request({
-        //   header:{
-        //     // cookie:wx.getStorageSync('token')
-        //   },
-        //   url:'https://mockapi.eolinker.com/DIvEEJG0adff1fcb42ec5c36ec5dba353d96bb5387d1a6b/admin/getbycolle',
-        //   timeout:5000
-        // }).then(res => {
-        //   console.log(res);
-
-        //   //开始操作数据
-        //   wx.hideLoading();
-        //   this.setData({
-        //     isFinish:true
-        //   })
-        //   resolve();
-        // }).catch(err => {
-        //   wx.hideLoading();
-        //   this.setData({
-        //     isTimeout:true,
-        //   })
-        //   reject(err);
-        // })
         getForm().then(res => {
-          console.log(res);
-          //在这里操作数据
-          wx.hideLoading();
-          this.setData({
-            isFinish:true
+          wx.hideLoading({
+            success: () => {
+              if(res.code == 1){
+                let data = JSON.parse(res.data);
+                console.log(data)
+                //在这里操作数据
+                this.setData({
+                  isFinish:true
+                })
+                this.setData({
+                  formData:data
+                })
+                this.setCpnData(data);
+              }else{
+                this.setCpnData({});
+                wx.showToast({
+                  title: res.msg,
+                  icon:'error',
+                  duration:1500
+                })
+                this.setData({
+                  isTimeout:true,
+                })
+              }
+            },
           })
-            this.setData({
-              formData:res.data
-            })
-            this.setCpnData(res.data);
-            resolve();
         }).catch(err => {
+          console.log(err)
+          this.setCpnData({});
           wx.hideLoading();
+          wx.showToast({
+            title: '网络错误',
+            icon:'error',
+            duration:1500
+          })
           this.setData({
             isTimeout:true,
           })
-          reject(err);
         })
       }, 1000);
     })

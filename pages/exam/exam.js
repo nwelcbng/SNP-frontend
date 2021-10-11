@@ -1,5 +1,5 @@
 // pages/test/test.js
-import {getExamData} from "../../services/network/exam"
+import {getExamData,giveUp,SignIn} from "../../services/network/exam"
 Page({
 
   /**
@@ -12,26 +12,9 @@ Page({
     ExamData:null,
     buttons: [{text: '确定'}],
     showOneButtonDialog:false,
-    stateCode:[4,0,1]
+    stateCode:[2,0,0]
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     const isLoged = wx.getStorageSync("userInfo") || null;
     //获取用户登录信息
@@ -52,75 +35,52 @@ Page({
     }
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
   onPullDownRefresh: function () {
-    this.requestData().then(() => {
-      wx.stopPullDownRefresh();
-    }).catch(err => {
-      console.log(err);
+    this.requestData().finally(() => {
       wx.stopPullDownRefresh();
     })
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  checkNum(checkCode) {
+    let arr = new String(checkCode);
+    return arr.split("").map((item) => {
+      return parseInt(item);
+    });
   },
   SureGo(event){
-    console.log(event)
-    this.setData({
-      sureGo:event.detail.remark
-    })
+    // if(!ExamData){
+    //   wx.showToast({
+    //     title: '网络错误',
+    //     icon:'error',
+    //     duration:1500
+    //   })
+    //   return;
+    // }
+    // if(ExamData.enroll == 200){
+    //   //一面
+    // }else if(ExamData.enroll == 300){
+    //   //笔试
+    // }
+    console.log(event);
+    console.log("走")
+
   },
   SureAb(event){
-    console.log(event)
-    this.setData({
-      sureGo:event.detail.remark
-    })
-  },
-  Sure(res){
-    // if(this.data.sureGo<0&&(!res.detail.value.reason||!res.detail.value.reason.length)){
+    // if(!ExamData){
     //   wx.showToast({
-    //     title: '请输入请假理由',
-    //     icon: 'none',
-    //     duration: 1500
+    //     title: '网络错误',
+    //     icon:'error',
+    //     duration:1500
     //   })
-    //   return ;
+    //   return;
     // }
-    // const data = {
-    //   check:res.detail.value.reason,
-    //   result:this.data.sureGo
+    // if(ExamData.enroll == 200){
+    //   //一面缺席
     // }
-    // console.log(data)
-    // //发送网络请求
-    // this.setData({
-    //   isSure:true
-    // })
+    console.log(event);
+    console.log("跑路");
+    
+
   },
   dialogShow(){
     this.setData({
@@ -133,7 +93,7 @@ Page({
     })
   },
   requestData(){
-    return new Promise((resolve, reject) => {
+    return new Promise(() => {
       this.setData({
         isFinish:false,
         isTimeout:false
@@ -141,29 +101,48 @@ Page({
       wx.showLoading({
         title: '加载数据中',
       });
-      setTimeout(() => {
-        console.log("开始请求了");
-       
+      setTimeout(() => {     
         getExamData().then(res => {
-          console.log(res);
-          wx.hideLoading();
-          this.setData({
-            isFinish:true
-          })
-            console.log(res.data)
-            this.setData({
-              ExamData:res.data
-            })
-            resolve();
-
+          wx.hideLoading({
+            success: () => {
+              if(res.code == 1){
+                this.setData({
+                  isFinish:true
+                })
+                  console.log(res.data)
+                  this.setData({
+                    ExamData:res.data,
+                    // stateCode:this.checkNum(res.data.enroll)
+                  })
+              }else{
+                wx.showToast({
+                  title: res.msg,
+                  icon:'error',
+                  duration:1500
+                })
+              }
+            },
+          })  
         }).catch(err => {
-          wx.hideLoading();
-          this.setData({
-            isTimeout:true,
+          console.log(err)
+          wx.hideLoading({
+            success: () => {
+              this.setData({
+                isTimeout:true,
+              })
+              wx.showToast({
+                title: '网络错误',
+                icon:'error'
+              })
+            },
           })
-          reject(err);
         })
       }, 1000);
+    })
+  },
+  input(event){
+    this.setData({
+      stateCode:this.checkNum(event.detail.value)
     })
   }
 })

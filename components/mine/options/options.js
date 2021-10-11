@@ -1,4 +1,5 @@
 // components/options/options.js
+
 Component({
   /**
    * 组件的属性列表
@@ -19,11 +20,10 @@ Component({
    */
   methods: {
     scanQRcode(){
-      console.log("dased");
+      var _this = this;
       wx.scanCode({
-        onlyFromCamera: true,
         success (res) {
-          console.log(res)
+          _this.triggerEvent('scanQRcode',{uuid:res.result})
         }
       })
     }

@@ -1,88 +1,80 @@
 // app.js
-import request from "./services/network/request"
-import DecodeJWT from "./services/DecodeJWT/jwtUncode"
+import {registerRe,loginRe} from "./services/network/login"
+import {DecodeJWT,base64_decode} from "./services/DecodeJWT/jwtUncode"
 
 App({
   data:{
 
   },
   onLoad() {
+
   },
   onLaunch() {
-    // 展示本地存储能力
-    let token = wx.getStorageSync('token') || []
-    if(token == null || token.length == 0||!this.checkToken()){
+    let token = wx.getStorageSync('token');
+    if(!token){
       //没有token的情况
+      this.register();
+    }
+    else{
+      // console.log('登录');
+      // let info = base64_decode(wx.getStorageSync('token'));
+      // let info2 = DecodeJWT(wx.getStorageSync('token'));
+      // console.log(info2 == info)
+      // console.log(info2);
+      // console.log(JSON.parse(info2));
+      // console.log(info);
+      // console.log(JSON.parse(info.slice(0,info.length-2)));
 
-      this.login().then(res => {
-        console.log(res)
 
+
+      loginRe(token).then(res => {
+        if(res.code == 1){
+          wx.setStorageSync('token', res.data);
+          let tokenStr = base64_decode(res.data);
+          wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
+        }else{
+          wx.showToast({
+            title: res.msg,
+            icon:'error'
+          })
+          console.log('jwt过期了')
+          this.register();
+        }
       }).catch(err => {
         console.log(err)
       })
     }
-    wx.setStorageSync('phone',false);
-    // console.log(DecodeJWT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"));
-  
-
+    // console.log(DecodeJWT(wx.getStorageSync('token'))) 
   },
-  login(){
-    return new Promise((resolve, reject) => {
+  register(){
+    console.log('注册')
       wx.login({
         success: res => {
-          //拿到code
-          console.log(res.code);
-          request({
-            url:"http://localhost:4000/main",
-            data:{
-              code:res.code
-            }
+          console.log(res.code)
+          registerRe({
+            code:res.code
           }).then(res => {
-            //拿到token
-
-            // DecodeJWT(res)
-            let unCodeJWT = DecodeJWT(res.data.data)
-            if(unCodeJWT.phone == true){
-              wx.setStorageSync('phone', true);
+            console.log(res)
+            if(res.code == 1){
+              wx.setStorageSync('token', res.data);
+              let tokenStr = base64_decode(res.data);
+              wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
             }else{
-              wx.setStorageSync('phone', false);
+              wx.showToast({
+                title: res.msg,
+                icon:'error'
+              })
             }
-            console.log(res.data);
-            wx.setStorageSync('token', res.data)
-            resolve("登录成功");
-
-          }).catch(err =>{
-            reject(err);
-            // this.login();
+          },err => {
+            console.log(err)
           })
         },
         fail: err =>{
-          reject(err)
+          console.log(err)
         }
       })
-    })
   },
 
-
-  checkToken(){
-    let token = wx.getStorageSync('token');
-    let valid = false;
-    // request({
-    //   url:"",
-    //   data:{
-    //     token
-    //   },
-    //   success: res =>{
-    //     console.log(res);
-    //     //检验token是否过期
-
-    //   },
-    //   fail: err => {
-    //     console.log(err)
-    //   }
-    // })
-    return valid;
-  },
   
   globalData: {
     valid:false
