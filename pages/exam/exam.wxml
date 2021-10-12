@@ -20,7 +20,7 @@
         <text>{{ExamData.result}}</text>
     </mp-dialog>
   </view>
-  <input type="text" bindinput="input" class="input" placeholder="状态码测试"></input>
+  <!-- <input type="text" bindinput="input" class="input" placeholder="状态码测试"></input> -->
 </block>
 
 <view class='stars'></view>

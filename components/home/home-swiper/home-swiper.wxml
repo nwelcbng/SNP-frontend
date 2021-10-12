@@ -7,7 +7,7 @@
       easeInOutCubic>
       <block wx:for="{{banners}}" wx:key="index">
         <swiper-item>
-          <image class="swiper-img" src="{{item.image}}" ></image>
+          <image class="swiper-img" src="{{item}}" ></image>
         </swiper-item>
       </block>
   </swiper>

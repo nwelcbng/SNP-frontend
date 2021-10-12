@@ -15,7 +15,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    hasPhone:false,
+    hasPhone:wx.getStorageSync('phone'),
     formData:null,
     btnActive:false,
     depList:['','维修部','秘书部','网宣部','外联部','实践部','项目部'],

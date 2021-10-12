@@ -93,7 +93,7 @@ Page({
     })
   },
   requestData(){
-    return new Promise(() => {
+    return new Promise((resolve,reject) => {
       this.setData({
         isFinish:false,
         isTimeout:false
@@ -114,12 +114,14 @@ Page({
                     ExamData:res.data,
                     // stateCode:this.checkNum(res.data.enroll)
                   })
+                  resolve();
               }else{
                 wx.showToast({
                   title: res.msg,
                   icon:'error',
                   duration:1500
                 })
+                reject();
               }
             },
           })  
@@ -135,6 +137,11 @@ Page({
                 icon:'error'
               })
             },
+          })
+          reject();
+        }).finally(() => {
+          this.setData({
+            isFinish:true
           })
         })
       }, 1000);

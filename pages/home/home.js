@@ -3,8 +3,12 @@ import request from "../../services/network/request.js"
 
 Page({
   data: {
-
-    banners:[], //轮播图数组
+    banners:[
+      '/assets/img/swiper/1-a.jpg',
+      '/assets/img/swiper/2-a.jpg',
+      '/assets/img/swiper/3-a.jpg',
+      '/assets/img/swiper/4-a.jpg'
+    ], //轮播图数组
     list:[
       {
         title:"网宣部",

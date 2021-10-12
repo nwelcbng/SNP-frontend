@@ -115,14 +115,12 @@ Page({
                   icon:'error',
                   duration:1500
                 })
-                this.setData({
-                  isTimeout:true,
-                })
               }
+              resolve();
             },
           })
         }).catch(err => {
-          console.log(err)
+          reject(err)
           this.setCpnData({});
           wx.hideLoading();
           wx.showToast({
@@ -130,8 +128,9 @@ Page({
             icon:'error',
             duration:1500
           })
+        }).finally(() => {
           this.setData({
-            isTimeout:true,
+            isFinish:true
           })
         })
       }, 1000);
