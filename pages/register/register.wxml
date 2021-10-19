@@ -1,7 +1,7 @@
 <!-- <view class="register-title">elc欢迎你!</view> -->
-<view class='stars'></view>
+<!-- <view class='stars'></view>
 <view class='stars2'></view>
-<view class='stars3'></view>
+<view class='stars3'></view> -->
 
 <block wx:if="{{!isLoged}}">
   <view class="register-warn">你还没有登录，请登陆后在进行报名哦!</view>
@@ -14,7 +14,7 @@
 
 <block wx:elif="{{isFinish}}">
   <view class="register-form">
-    <register-form  id="register-form" hasPhone="{{hasPhone}}"></register-form>
+    <register-form  id="register-form" hasPhone="{{hasPhone}}" ></register-form>
   </view>
 </block>
 

@@ -17,7 +17,7 @@
   </navigator>
   <navigator>
     <view class="options-item" bindtap="scanQRcode">
-      <image src="/assets/img/erweima (2).png" class="icon"></image>
+      <image src="/assets/img/erweima.png" class="icon"></image>
       <text>web端扫码登录</text>
       <image src="/assets/img/jiantou.png" class="icon-right"></image>
     </view>
@@ -28,13 +28,6 @@
       <button class="share-btn-right" open-type="share" ></button>
       <image src="/assets/img/ziyuan.png" class="icon"></image>
       <text>分享给朋友</text>
-      <image src="/assets/img/jiantou.png" class="icon-right"></image>
-    </view> 
-  </navigator>
-  <navigator>
-    <view class="options-item">
-      <image src="/assets/img/dengpao.png" class="icon"></image>
-      <text>如何使用小程序</text>
       <image src="/assets/img/jiantou.png" class="icon-right"></image>
     </view> 
   </navigator>

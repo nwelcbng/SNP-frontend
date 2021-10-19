@@ -1,21 +1,22 @@
 import { PostForm,PostPhone,PostCode } from "../../../services/network/register";
+import {base64_decode} from "../../../services/DecodeJWT/jwtUncode"
 // components/register-form/register.form.js
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    // hasPhone:{
-    //   type:Boolean,
-    //   value:true
-    // }
+    hasPhone:{
+      type:Boolean,
+      value:true
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    hasPhone:wx.getStorageSync('phone'),
+    // hasPhone:wx.getStorageSync('phone'),
     formData:null,
     btnActive:false,
     depList:['','维修部','秘书部','网宣部','外联部','实践部','项目部'],
@@ -41,12 +42,11 @@ Component({
    */
   methods: {
     setFormData(data){
-      console.log("123")
       // 父组件传来的内容
-      console.log(wx.getStorageSync('phone'));
+      // console.log(wx.getStorageSync('phone'));
       this.setData({
         formData:data,
-        hasPhone:wx.getStorageSync('phone')
+        // hasPhone:wx.getStorageSync('phone')
       })
     },
     formSubmit(e) {
@@ -86,7 +86,6 @@ Component({
       })
       .then(res => {
         if(this.data.hasPhone){
-          console.log(res);
           return PostForm(res);
         }else{
           console.log(res);
@@ -102,6 +101,9 @@ Component({
           })
           wx.setStorageSync('phone',true);
           wx.setStorageSync('token', res.data);
+          let tokenStr = base64_decode(res.data);
+          console.log(tokenStr)
+          console.log(res.data)
           wx.showToast({
             title: "提交成功",  // 标题
             icon: 'success',   // 图标类型，默认success
@@ -125,7 +127,6 @@ Component({
         })
       })
     },
-
     submitDataClass(data){
       if(this.data.hasPhone){
         console.log('手机验证通过了11')
@@ -140,12 +141,12 @@ Component({
       return new Promise((resolve ,reject) => {
         let reg = /^\d{11}$/;
         if(!reg.test(data.phone)){
-          return reject('请输入正确的手机号码')
+          return reject('手机号码不正确')
         }
         reg = /^\d{6}$/;
         if(!reg.test(data.code)){
           //检测验证码是否正确
-          return reject('请输入正确的验证码')
+          return reject('验证码格式错误')
         }
         resolve(data);
       })
@@ -188,6 +189,7 @@ Component({
       })
     },
     sexChange(){
+      console.log(this.data.formData.gender)
       this.setData({
         ['formData.gender']:!this.data.formData.gender
       })

@@ -1,26 +1,7 @@
 <form class="register-form" catchsubmit="formSubmit">
     <view class="tips"><text decode="{{true}}" class="tip">&nbsp;&nbsp;&nbsp;&nbsp;Tips:可以在“我的”界面中进行扫码，然后在web端登录并填写报名信息</text></view>
-    <view wx:if="{{!hasPhone}}" class="formTest">
-      <view class="register-item phoneTest" >
-        <view class="register-label-an" >
-          <view class="text1 {{Pactive == true?'textactive':''}}">手</view>
-          <view class="text1 {{Pactive == true?'textactive':''}}" style="transition-delay:0.1s">机</view>
-        </view>
-        <input class="register-input phone input-fontFormat" name="phone" bindinput="Pinput" bindfocus="PtextFoucs" bindblur="PtextUnfoucs" />
-      <!-- <text class="codeLabel">验证码：</text> -->
-      </view>
 
-      <view class="register-item phoneTest" >
-        <view class="register-label-an" >
-          <view class="text1 {{Tactive == true?'textactive':''}}">验</view>
-          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.1s">证</view>
-          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.2s">码</view>
-        </view>
-        <input class="register-input testCode" name="code" bindfocus="TtextFoucs" bindblur="TtextUnfoucs"/>
-        <button size="mini" class="  {{codeBtn == true ? 'codeBtn-active':'codeButton'}}" bindtap="codeBtnTap">{{ timing!=0 ? '已发送验证码('+timing+')' : '获取验证码'}}</button>
-      </view>
-    </view>
-    <view wx:else class="formTest">
+    <view wx:if="{{hasPhone}}" class="formTest">
         <view class="register-item">
         <view class="register-label-an" >
         <view class="text1 {{Sactive||formData.sno ?'textactive':''}}">学</view>
@@ -119,6 +100,26 @@
       <view class="register-item">
         <view  class="register-label">已加入的其他社团</view>
         <textarea class="register-textarea input-fontFormat" name="party" value="{{formData.party}}"  placeholder="请输入已加入的社团"></textarea>
+      </view>
+    </view>
+    <view wx:else class="formTest">
+      <view class="register-item phoneTest" >
+        <view class="register-label-an" >
+          <view class="text1 {{Pactive == true?'textactive':''}}">手</view>
+          <view class="text1 {{Pactive == true?'textactive':''}}" style="transition-delay:0.1s">机</view>
+        </view>
+        <input class="register-input phone input-fontFormat" name="phone" bindinput="Pinput" bindfocus="PtextFoucs" bindblur="PtextUnfoucs" />
+      <!-- <text class="codeLabel">验证码：</text> -->
+      </view>
+
+      <view class="register-item phoneTest" >
+        <view class="register-label-an" >
+          <view class="text1 {{Tactive == true?'textactive':''}}">验</view>
+          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.1s">证</view>
+          <view class="text1 {{Tactive == true?'textactive':''}}" style="transition-delay:0.2s">码</view>
+        </view>
+        <input class="register-input testCode" name="code" bindfocus="TtextFoucs" bindblur="TtextUnfoucs"/>
+        <button size="mini" class="  {{codeBtn == true ? 'codeBtn-active':'codeButton'}}" bindtap="codeBtnTap">{{ timing!=0 ? '已发送验证码('+timing+')' : '获取验证码'}}</button>
       </view>
     </view>
     <button formType="submit" class="submit {{ btnActive == true? 'button-active':'button'}}" >提交</button>

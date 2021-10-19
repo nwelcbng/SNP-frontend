@@ -5,7 +5,7 @@ export default function(config){
         url: 'https://snpapi.gdutelc.com'+config.url,
         method:config.method || 'get',
         data:config.data || [],
-        // timeout:1,
+        timeout:5000,
         header:config.header,
         success: res => {
           resolve(res.data);

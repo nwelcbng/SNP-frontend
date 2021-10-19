@@ -7,6 +7,10 @@ Component({
     honor:{
       type:Object,
       value:{}
+    },
+    hasMore:{
+      type:Boolean,
+      value:true
     }
   },
 

@@ -112,7 +112,7 @@ Page({
                   console.log(res.data)
                   this.setData({
                     ExamData:res.data,
-                    // stateCode:this.checkNum(res.data.enroll)
+                    stateCode:this.checkNum(res.data.enroll)
                   })
                   resolve();
               }else{
@@ -136,6 +136,7 @@ Page({
                 title: '网络错误',
                 icon:'error'
               })
+            
             },
           })
           reject();
@@ -151,5 +152,25 @@ Page({
     this.setData({
       stateCode:this.checkNum(event.detail.value)
     })
-  }
+  },
+  onShareAppMessage() {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: 'elc报名小程序'
+        })
+      }, 2000)
+    })
+    return {
+      title: 'elc报名小程序',
+      path: '/page/home/home',
+      promise 
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: 'elc报名小程序'
+    }
+  },
+  
 })

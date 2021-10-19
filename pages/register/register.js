@@ -1,4 +1,6 @@
 import {getForm} from "../../services/network/register"
+import {registerRe,loginRe} from "../../services/network/login"
+import {base64_decode} from "../../services/DecodeJWT/jwtUncode"
 Page({
 
   data: {
@@ -9,7 +11,8 @@ Page({
     Nactive:false,
     Qactive:false,
     Pactive:false,
-    formData:null
+    formData:null,
+    hasPhone:wx.getStorageSync('phone')
   },
 
   /**
@@ -65,145 +68,170 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.requestData().finally(() => {
-      wx.stopPullDownRefresh();
-    })
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+    wx.stopPullDownRefresh();
+    this.requestData()
 
   },
   requestData(){
-    return new Promise((resolve, reject) => {
-      this.setData({
-        isFinish:false,
-        isTimeout:false
-      })
-      wx.showLoading({
-        title: '加载数据中',
-      });
-      setTimeout(() => {
-        getForm().then(res => {
-          wx.hideLoading({
-            success: () => {
-              if(res.code == 1){
-                let data = JSON.parse(res.data);
-                console.log(data)
-                //在这里操作数据
-                this.setData({
-                  isFinish:true
-                })
-                this.setData({
-                  formData:data
-                })
-                this.setCpnData(data);
-              }else{
-                this.setCpnData({});
-                wx.showToast({
-                  title: res.msg,
-                  icon:'error',
-                  duration:1500
-                })
-              }
-              resolve();
-            },
-          })
-        }).catch(err => {
-          reject(err)
-          this.setCpnData({});
-          wx.hideLoading();
-          wx.showToast({
-            title: '网络错误',
-            icon:'error',
-            duration:1500
-          })
-        }).finally(() => {
-          this.setData({
-            isFinish:true
-          })
+    return this.refreshState().then(() => {
+      console.log("123")
+        this.setData({
+          isFinish:false,
+          isTimeout:false
         })
-      }, 1000);
+        wx.showLoading({
+          title: '加载数据中',
+        });
+          getForm().then(res => {
+            wx.hideLoading({
+              success: () => {
+                if(res.code == 1){
+                  let data = JSON.parse(res.data);
+                  data = (data ? data : {});
+                  console.log(data)
+                  //在这里操作数据
+                  this.setData({
+                    isFinish:true
+                  })
+                  this.setData({
+                    formData:data
+                  })
+                  this.setCpnData(data);
+                }else{
+                  let data = {};
+                  this.setCpnData(data);
+                  wx.showToast({
+                    title: res.msg,
+                    icon:'error',
+                    duration:1500
+                  })
+                }
+              },
+            })
+          }).catch(err => {
+            console.log(err)
+            wx.hideLoading();
+            wx.showToast({
+              title: '网络错误',
+              icon:'error',
+              duration:1500
+            })
+            this.setData({
+              isTimeout:true
+            })
+          }).finally(() => {
+            this.setData({
+              isFinish:true
+            })
+          })
     })
   },
   setCpnData(data){
     this.selectComponent('#register-form').setFormData(data);
   },
-  bindPickerChange(event){
-    this.setData({
-      depIndex:event.detail.value
+  refreshState(){
+    return new Promise((resolve) => {
+      let token = wx.getStorageSync('token');
+      console.log('本地已有的token：')
+      console.log(base64_decode(token))
+      if(!token){
+        //没有token的情况
+        this.register().finally(() => {
+          resolve();
+        })
+      }
+      else{
+        console.log('登录')
+        loginRe(token).then(res => {
+          if(res.code == 1){
+            let tokenStr = base64_decode(res.data);
+            wx.setStorageSync('token', res.data);
+            wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
+            console.log(tokenStr)
+            this.setData({
+              hasPhone:tokenStr.indexOf("true") != -1
+            })
+          }else{
+            // wx.showToast({
+            //   title: res.msg,
+            //   icon:'error'
+            // })
+            console.log('jwt过期了')
+            this.register();
+          }
+          resolve();
+        }).catch(err => {
+          resolve();
+          console.log(err)
+        })
+      }
     })
+    
   },
-  bindPickerChangeSec(event){
-    this.setData({
-      secIndex:event.detail.value
-    })
-  },
-  sexChange(){
-    this.setData({
-      sex:!this.data.sex
-    })
-  },
-  StextFoucs(){
-    this.setData({
-      Sactive:true
-    })
-  },
-  StextUnfoucs(event){
-    console.log(event)
-    if(!event.detail.value){
-      this.setData({
-        Sactive:false
+  register(){
+    return new Promise((reslove) => {
+      wx.login({
+        success: res => {
+          console.log(res.code)
+          registerRe({
+            code:res.code
+          }).then(res => {
+            if(res.code == 1){
+              console.log('注册')
+              let tokenStr = base64_decode(res.data);
+              wx.setStorageSync('token', res.data);
+              wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
+              console.log(tokenStr)
+              this.setData({
+                hasPhone:tokenStr.indexOf("true") != -1
+              })
+            }else{
+              wx.showToast({
+                title: res.msg,
+                icon:'error'
+              })
+            }
+            reslove()
+          },err => {
+            console.log(err)
+          }).catch(err => {
+            console.log(err)
+            this.setData({
+              isTimeout:true
+            })
+            wx.stopPullDownRefresh();
+          })
+        },
+        fail: err =>{
+          this.setData({
+            isTimeout:true
+          })
+          wx.stopPullDownRefresh();
+          console.log(err)
+        }
       })
-    }
-  },  
-  NtextFoucs(){
-    this.setData({
-      Nactive:true
     })
+    
   },
-  NtextUnfoucs(event){
-    if(!event.detail.value){
-      this.setData({
-        Nactive:false
-      })
-    }
-    console.log(this.data.Nactive);
-  },  
-  QtextFoucs(){
-    this.setData({
-      Qactive:true
+  onShareAppMessage() {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: 'elc报名小程序'
+        })
+      }, 2000)
     })
-  },
-  QtextUnfoucs(event){
-    console.log(event)
-    if(!event.detail.value){
-      this.setData({
-        Qactive:false
-      })
+    return {
+      title: 'elc报名小程序',
+      path: '/page/home/home',
+      promise 
     }
-  },  
-  PtextFoucs(){
-    this.setData({
-      Pactive:true
-    })
   },
-  PtextUnfoucs(event){
-    console.log(event)
-    if(!event.detail.value){
-      this.setData({
-        Pactive:false
-      })
+  onShareTimeline() {
+
+    return {
+      title: 'elc报名小程序'
     }
-  }
+  },
+  
 })

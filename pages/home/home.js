@@ -76,6 +76,20 @@ Page({
         items:[]
       }
     ],
+    activities:[
+      {
+        year:"一面",
+        items:['时间：10月17日 19:00-23:00','等候室：实验四号楼213','面试地点：实验四号楼211']
+      },
+      {
+        year:"笔试",
+        items:['时间：10月18日 21:30开始','等候室：实验四号楼213','面试地点：实验四号楼211']
+      },
+      {
+        year:"二面",
+        items:['时间：10月19日 21:30开始','等候室：实验四号楼213','面试地点：实验四号楼211']
+      }
+    ],
     tops:[],
     depTop:0,
     parTop:0,
@@ -88,15 +102,6 @@ Page({
 
 
   onLoad: function (options) {
-    // request({
-    //   url:"http://152.136.185.210:7878/api/m5/home/multidata"
-    // }).then(res => {
-    //   this.setData({
-    //     banners:res.data.banner.list
-    //   })
-    // }).catch(err => {
-    //   console.log(err)
-    // })
 
   },
 
@@ -150,46 +155,6 @@ Page({
       //res[1].scrollTop // 显示区域的竖直滚动位置
     });
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   onPageScroll(position){
     this.setData({
       scrollTop:position.scrollTop + 500
@@ -197,6 +162,7 @@ Page({
     // console.log(this.data.tops)
     // console.log(this.data.scrollTop)
   },
+
   scrollToDep(){
     wx.pageScrollTo({
       duration: 500,
@@ -227,11 +193,31 @@ Page({
   },
   imgClick(){
     wx.previewImage({
-      current: 'https://s10.mogucdn.com/mlcdn/c45406/180926_45fkj8ifdj4l824l42dgf9hd0h495_750x390.jpg', // 当前显示图片的http链接
-      urls: ['https://s10.mogucdn.com/mlcdn/c45406/180926_45fkj8ifdj4l824l42dgf9hd0h495_750x390.jpg'], // 需要预览的图片http链接列表
+      current: 'https://forum.gdutelc.com/uploads/default/original/2X/3/3f3b0d339a12c13a71d457375b507a484c46bb93.png', // 当前显示图片的http链接
+      urls: ['https://forum.gdutelc.com/uploads/default/original/2X/3/3f3b0d339a12c13a71d457375b507a484c46bb93.png'], // 需要预览的图片http链接列表
       success: (res) => {
         console.log(res)
      }
     })
-  }
+  },
+  onShareAppMessage() {
+    const promise = new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          title: 'elc报名小程序'
+        })
+      }, 2000)
+    })
+    return {
+      title: 'elc报名小程序',
+      path: '/page/home/home',
+      promise 
+    }
+  },
+  onShareTimeline() {
+    return {
+      title: 'elc报名小程序'
+    }
+  },
+  
 })

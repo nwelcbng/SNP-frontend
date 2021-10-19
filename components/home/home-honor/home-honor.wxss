@@ -3,7 +3,7 @@
   justify-content: space-around;
   margin-bottom: 30rpx;
   text-align: left;
-  color: white;
+  color: black;
   font-size: 26rpx;
 }
 .honorItems{

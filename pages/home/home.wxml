@@ -1,7 +1,7 @@
 <mp-dialog title="进群二维码" show="{{showOneButtonDialog}}" bindbuttontap="joinDialog" buttons="{{buttons}}">
-  <image src="/assets/img/erweima.png" class="dialog-img" bindtap="imgClick"></image>
+  <image src="https://forum.gdutelc.com/uploads/default/original/2X/3/3f3b0d339a12c13a71d457375b507a484c46bb93.png" class="dialog-img" bindtap="imgClick"></image>
 </mp-dialog>
-<view class="star-module1">
+<!-- <view class="star-module1">
   <view class='stars'></view>
   <view class='stars2'></view>
   <view class='stars3'></view>
@@ -10,7 +10,7 @@
   <view class='stars'></view>
   <view class='stars2'></view>
   <view class='stars3'></view>
-</view>
+</view> -->
 <home-swiper banners="{{banners}}"></home-swiper>
 <navBar bind:scrollToDep="scrollToDep"
         bind:joinDialog="joinDialogShow"
@@ -42,8 +42,16 @@
     <home-honor honor="{{honor}}">
     </home-honor>
   </view>
+
+  <view class="home-introduce-title {{scrollTop>tops[1] ? 'active-box':'box'}}" id="honor">
+    <view>活动地点</view>
+  </view>
+  <view class="home-introduce-main">
+    <home-honor honor="{{activities}}" hasMore="{{false}}">
+    </home-honor>
+  </view>
 </view>
 
-<view class='stars'></view>
+<!-- <view class='stars'></view>
 <view class='stars2'></view>
-<view class='stars3'></view>
+<view class='stars3'></view> -->

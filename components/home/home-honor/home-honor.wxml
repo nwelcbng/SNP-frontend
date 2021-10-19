@@ -10,9 +10,7 @@
       {{itemS}}
       </view>
 
-      <view class="itemText">
-      ......
-      </view>
+      <view class="itemText" wx:if="{{hasMore}}">......</view>
     </view>
     <!-- <view class="honorItem" > 
       <view class="honorTime">2016</view>

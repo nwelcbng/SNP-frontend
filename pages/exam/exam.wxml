@@ -16,8 +16,8 @@
     <view class="xiaoxi-win" bindtap="dialogShow">
       <image src="/assets/img/xiaoxi.png" class="xiaoxi"></image>
     </view>
-    <mp-dialog title="师兄师姐的意见" show="{{showOneButtonDialog}}" bindbuttontap="exitDialog" buttons="{{buttons}}">
-        <text>{{ExamData.result}}</text>
+    <mp-dialog title="师兄师姐的评价" show="{{showOneButtonDialog}}" bindbuttontap="exitDialog" buttons="{{buttons}}">
+        <text>{{ExamData.result ? ExamData.result : '暂无评价'}}</text>
     </mp-dialog>
   </view>
   <!-- <input type="text" bindinput="input" class="input" placeholder="状态码测试"></input> -->

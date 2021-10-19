@@ -20,6 +20,7 @@ App({
         if(res.code == 1){
           wx.setStorageSync('token', res.data);
           let tokenStr = base64_decode(res.data);
+          console.log(tokenStr)
           wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
         }else{
           // wx.showToast({
@@ -47,6 +48,7 @@ App({
             if(res.code == 1){
               wx.setStorageSync('token', res.data);
               let tokenStr = base64_decode(res.data);
+              console.log(tokenStr)
               wx.setStorageSync('phone',tokenStr.indexOf("true") != -1);
             }else{
               wx.showToast({
@@ -63,7 +65,6 @@ App({
         }
       })
   },
-
   
   globalData: {
     valid:false

@@ -34,6 +34,7 @@ export function PostCode(data){
 }
 
 export function PostForm(data){
+  console.log(data)
   return request({
     url:"/user/appsign",
     method:"POST",

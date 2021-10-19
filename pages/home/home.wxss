@@ -1,7 +1,6 @@
-page{
-  /* background: radial-gradient( #1b2735 0%, #090a0f 100%); */
+/* page{
   background: black;
-}
+} */
 .home-introduce{
   text-align: center;
   overflow: hidden;
